@@ -37,15 +37,31 @@ export default class PluginState {
     dictKey: string
   }
 
+  // 已会词存储：每个词典各自维护一份
+  private _knownWords: Record<string, Set<string>>
+  // 每个词典中每个词的「连续完美完成次数」，用于自动标记
+  private _perfectStreaks: Record<string, Record<string, number>>
+  // 当前单词在本轮练习中是否打错过（影响 streak 是否累加）
+  private _hadWrongInCurrentWord: boolean
+
   constructor(context: vscode.ExtensionContext) {
     const globalState = context.globalState
     this._globalState = globalState
-    globalState.setKeysForSync(['chapter', 'dictKey'])
+    globalState.setKeysForSync(['chapter', 'dictKey', 'knownWords', 'perfectStreaks'])
 
     this._dictKey = globalState.get('dictKey', 'cet4')
     this.dict = idDictionaryMap[this._dictKey]
     this.dictWords = []
     this.hideDictName = false
+
+    const rawKnown = globalState.get<Record<string, string[]>>('knownWords', {})
+    this._knownWords = {}
+    for (const k of Object.keys(rawKnown)) {
+      this._knownWords[k] = new Set(rawKnown[k])
+    }
+    this._perfectStreaks = globalState.get<Record<string, Record<string, number>>>('perfectStreaks', {})
+    this._hadWrongInCurrentWord = false
+
     this.loadDict()
 
     this._order = globalState.get('order', 0)
@@ -108,11 +124,21 @@ export default class PluginState {
   get wordExerciseTime(): number {
     return getConfig('wordExerciseTime')
   }
+  // 过滤掉已会词后的词典池（不含切片）
+  private get filteredDictWords(): Word[] {
+    const known = this._knownWords[this._dictKey]
+    if (!known || known.size === 0) {
+      return this.dictWords
+    }
+    return this.dictWords.filter((w) => !known.has(w.name))
+  }
+
   get wordList(): Word[] {
     if (this._wordList.wordList.length > 0 && this._wordList.dictKey === this.dictKey && this._wordList.chapter === this.chapter) {
       return this._wordList.wordList
     } else {
-      let wordList = this.dictWords.slice(this.chapter * this.chapterLength, (this.chapter + 1) * this.chapterLength)
+      const filtered = this.filteredDictWords
+      let wordList = filtered.slice(this.chapter * this.chapterLength, (this.chapter + 1) * this.chapterLength)
       wordList.forEach((word) => {
         // API 字典会出现括号，但部分 vscode 插件会拦截括号的输入
         word.name = word.name.replace('(', '').replace(')', '')
@@ -133,6 +159,10 @@ export default class PluginState {
     }
   }
 
+  private invalidateWordListCache() {
+    this._wordList = { wordList: [], chapter: -1, dictKey: '' }
+  }
+
   get wordVisibility(): boolean {
     return this._wordVisibility
   }
@@ -142,10 +172,119 @@ export default class PluginState {
   }
 
   get totalChapters(): number {
-    if (this.dictWords) {
-      return Math.ceil(this.dictWords.length / this.chapterLength)
+    const pool = this.filteredDictWords
+    if (pool && pool.length > 0) {
+      return Math.ceil(pool.length / this.chapterLength)
     } else {
       return 0
+    }
+  }
+
+  get autoMarkThreshold(): number {
+    return getConfig('autoMarkThreshold') ?? 3
+  }
+
+  get knownCount(): number {
+    return this._knownWords[this._dictKey]?.size ?? 0
+  }
+
+  get totalDictSize(): number {
+    return this.dictWords.length
+  }
+
+  isKnown(name: string): boolean {
+    return this._knownWords[this._dictKey]?.has(name) ?? false
+  }
+
+  markKnown(name: string): void {
+    if (!this._knownWords[this._dictKey]) {
+      this._knownWords[this._dictKey] = new Set()
+    }
+    this._knownWords[this._dictKey].add(name)
+    this.persistKnownWords()
+
+    // 已会的词不再需要记录 streak
+    if (this._perfectStreaks[this._dictKey]) {
+      delete this._perfectStreaks[this._dictKey][name]
+      this.persistStreaks()
+    }
+
+    this.invalidateWordListCache()
+    this.clampChapterAndOrder()
+
+    // 当前词被移出练习池，重置每词练习状态，避免 curInput 残留到下一个词
+    this.curInput = ''
+    this.currentExerciseCount = 0
+    this._hadWrongInCurrentWord = false
+  }
+
+  unmarkAllKnownForCurrentDict(): void {
+    this._knownWords[this._dictKey] = new Set()
+    this._perfectStreaks[this._dictKey] = {}
+    this.persistKnownWords()
+    this.persistStreaks()
+    this.invalidateWordListCache()
+  }
+
+  private persistKnownWords(): void {
+    const serializable: Record<string, string[]> = {}
+    for (const k of Object.keys(this._knownWords)) {
+      serializable[k] = Array.from(this._knownWords[k])
+    }
+    this._globalState.update('knownWords', serializable)
+  }
+
+  private persistStreaks(): void {
+    this._globalState.update('perfectStreaks', this._perfectStreaks)
+  }
+
+  /**
+   * 章节或顺序可能因为已会词数量变化而越界，需要 clamp 到合法范围
+   */
+  private clampChapterAndOrder(): void {
+    const total = this.totalChapters
+    if (total === 0) {
+      this._chapter = 0
+      this._order = 0
+      return
+    }
+    if (this._chapter >= total) {
+      this._chapter = total - 1
+      this._globalState.update('chapter', this._chapter)
+    }
+    const list = this.wordList
+    if (this._order >= list.length) {
+      this._order = Math.max(0, list.length - 1)
+      this._globalState.update('order', this._order)
+    }
+  }
+
+  /**
+   * 用户完成当前单词的一次输入后调用。
+   * @returns true 表示该词刚刚因连续答对达到阈值，已被自动标记为已会
+   */
+  private bumpPerfectStreak(name: string): boolean {
+    if (this.autoMarkThreshold <= 0) {
+      return false
+    }
+    if (!this._perfectStreaks[this._dictKey]) {
+      this._perfectStreaks[this._dictKey] = {}
+    }
+    const bucket = this._perfectStreaks[this._dictKey]
+    bucket[name] = (bucket[name] ?? 0) + 1
+    if (bucket[name] >= this.autoMarkThreshold) {
+      // 达到阈值，自动标记。markKnown 内部会清掉这个 streak。
+      this.markKnown(name)
+      return true
+    }
+    this.persistStreaks()
+    return false
+  }
+
+  private resetPerfectStreak(name: string): void {
+    if (this._perfectStreaks[this._dictKey]?.[name]) {
+      delete this._perfectStreaks[this._dictKey][name]
+      this.persistStreaks()
     }
   }
 
@@ -181,25 +320,45 @@ export default class PluginState {
   wrongInput() {
     this.hasWrong = true
     this.curInput = ''
+    this._hadWrongInCurrentWord = true
   }
 
   clearWrong() {
     this.hasWrong = false
   }
 
-  finishWord() {
+  /**
+   * @returns 若该单词刚因连续答对被自动标记为已会，则返回该单词；否则返回 null
+   */
+  finishWord(): string | null {
+    const finishedWordName = this.currentWord?.name ?? ''
     this.curInput = ''
     this.currentExerciseCount += 1
+
+    let autoMarkedWord: string | null = null
     if (this.currentExerciseCount >= this.wordExerciseTime) {
+      // 本词的所有练习次数已完成，根据是否打错过来更新 streak
+      if (finishedWordName) {
+        if (this._hadWrongInCurrentWord) {
+          this.resetPerfectStreak(finishedWordName)
+        } else {
+          const justMarked = this.bumpPerfectStreak(finishedWordName)
+          if (justMarked) {
+            autoMarkedWord = finishedWordName
+          }
+        }
+      }
       this.nextWord()
     }
     this.voiceLock = false
+    return autoMarkedWord
   }
 
   prevWord() {
     if (this.order > 0) {
       this.order -= 1
       this.currentExerciseCount = 0
+      this._hadWrongInCurrentWord = false
     }
   }
 
@@ -221,6 +380,7 @@ export default class PluginState {
       this.order += 1
     }
     this.currentExerciseCount = 0
+    this._hadWrongInCurrentWord = false
   }
   toggleDictName() {
     this.hideDictName = !this.hideDictName

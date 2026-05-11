@@ -69,7 +69,10 @@ export function activate(context: vscode.ExtensionContext) {
     if (compareResult === -2) {
       // 用户完成单词输入
       soundPlayer('success')
-      pluginState.finishWord()
+      const autoMarked = pluginState.finishWord()
+      if (autoMarked) {
+        vscode.window.showInformationMessage(`🎯 ${autoMarked} 已掌握，自动加入已会列表`)
+      }
       initializeBar()
     } else if (compareResult >= 0) {
       pluginState.wrongInput()
@@ -179,6 +182,38 @@ export function activate(context: vscode.ExtensionContext) {
           vscode.window.showInformationMessage('章节循环模式已关闭')
         }
       }),
+      vscode.commands.registerCommand('qwerty-learner.markCurrentWordAsKnown', () => {
+        if (!pluginState.isStart) {
+          return
+        }
+        const w = pluginState.currentWord
+        if (!w) {
+          return
+        }
+        const name = w.name
+        pluginState.markKnown(name)
+        vscode.window.showInformationMessage(`✓ ${name} 已加入已会列表`)
+        initializeBar()
+      }),
+      vscode.commands.registerCommand('qwerty-learner.viewKnownStats', () => {
+        vscode.window.showInformationMessage(
+          `当前词典 [${pluginState.dict.name}]: 已会 ${pluginState.knownCount} / 共 ${pluginState.totalDictSize}`,
+        )
+      }),
+      vscode.commands.registerCommand('qwerty-learner.unmarkAllKnown', async () => {
+        const ok = await vscode.window.showWarningMessage(
+          `确定清空 [${pluginState.dict.name}] 的全部已会记录吗？此操作无法撤销。`,
+          { modal: true },
+          '确定',
+        )
+        if (ok === '确定') {
+          pluginState.unmarkAllKnownForCurrentDict()
+          vscode.window.showInformationMessage('已重置当前词典的已会列表')
+          if (pluginState.isStart) {
+            initializeBar()
+          }
+        }
+      }),
     ],
   )
 
@@ -213,7 +248,10 @@ export function activate(context: vscode.ExtensionContext) {
   function setUpReadOnlyInterval() {
     if (!pluginState.readOnlyIntervalId) {
       pluginState.readOnlyIntervalId = setInterval(() => {
-        pluginState.finishWord()
+        const autoMarked = pluginState.finishWord()
+        if (autoMarked) {
+          vscode.window.showInformationMessage(`🎯 ${autoMarked} 已掌握，自动加入已会列表`)
+        }
         initializeBar()
       }, pluginState.readOnlyInterval)
     }

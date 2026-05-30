@@ -448,4 +448,196 @@ export default class PluginState {
   private loadDict() {
     this.dictWords = getDictFile(this.dict.url)
   }
+
+  // ============================================================
+  // 跨机同步 (export / import)
+  // ============================================================
+
+  /**
+   * 导出当前所有学习状态为可序列化对象
+   */
+  exportState(includePreferences: boolean): ExportPayload {
+    const knownWords: Record<string, string[]> = {}
+    for (const k of Object.keys(this._knownWords)) {
+      knownWords[k] = Array.from(this._knownWords[k])
+    }
+    const payload: ExportPayload = {
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      knownWords,
+      perfectStreaks: this._perfectStreaks,
+      session: {
+        dictKey: this._dictKey,
+        chapter: this._chapter,
+        order: this._order,
+      },
+    }
+    if (includePreferences) {
+      const config = vscode.workspace.getConfiguration('qwerty-learner')
+      payload.preferences = {
+        wordVisibility: this._wordVisibility,
+        settings: {
+          keySound: config.get('keySound'),
+          phonetic: config.get('phonetic'),
+          chapterLength: config.get('chapterLength'),
+          wordExerciseTime: config.get('wordExerciseTime'),
+          voiceType: config.get('voiceType'),
+          placeholder: config.get('placeholder'),
+          random: config.get('random'),
+          autoMarkThreshold: config.get('autoMarkThreshold'),
+          autoPlayVoice: config.get('autoPlayVoice'),
+        },
+      }
+    }
+    return payload
+  }
+
+  /**
+   * 计算导入会带来的变化（不实际应用），用于显示 diff 给用户确认
+   */
+  previewImport(payload: ExportPayload): ImportPreview {
+    const knownDelta: Record<string, { current: number; incoming: number; newlyAdded: number }> = {}
+    for (const k of Object.keys(payload.knownWords || {})) {
+      const cur = this._knownWords[k] ?? new Set<string>()
+      const inc = new Set(payload.knownWords[k])
+      let newly = 0
+      for (const w of inc) {
+        if (!cur.has(w)) newly++
+      }
+      knownDelta[k] = { current: cur.size, incoming: inc.size, newlyAdded: newly }
+    }
+
+    let sessionDiff: ImportPreview['sessionDiff'] = null
+    let sessionRegression = false
+    if (payload.session) {
+      const inc = payload.session
+      const cur = { dictKey: this._dictKey, chapter: this._chapter, order: this._order }
+      if (inc.dictKey !== cur.dictKey || inc.chapter !== cur.chapter || inc.order !== cur.order) {
+        sessionDiff = { current: cur, incoming: inc }
+        // 同字典下章节倒退算 regression
+        if (inc.dictKey === cur.dictKey && (inc.chapter < cur.chapter || (inc.chapter === cur.chapter && inc.order < cur.order))) {
+          sessionRegression = true
+        }
+      }
+    }
+
+    let streakChanges = 0
+    for (const dk of Object.keys(payload.perfectStreaks || {})) {
+      for (const w of Object.keys(payload.perfectStreaks[dk] || {})) {
+        const cur = this._perfectStreaks[dk]?.[w] ?? 0
+        const inc = payload.perfectStreaks[dk][w]
+        if (Math.max(cur, inc) !== cur) streakChanges++
+      }
+    }
+
+    let preferencesChanges: number | null = null
+    if (payload.preferences) {
+      preferencesChanges = 0
+      const config = vscode.workspace.getConfiguration('qwerty-learner')
+      for (const key of Object.keys(payload.preferences.settings || {})) {
+        if (config.get(key) !== (payload.preferences.settings as any)[key]) {
+          preferencesChanges++
+        }
+      }
+      if (payload.preferences.wordVisibility !== undefined && payload.preferences.wordVisibility !== this._wordVisibility) {
+        preferencesChanges++
+      }
+    }
+
+    return { knownDelta, sessionDiff, sessionRegression, streakChanges, preferencesChanges }
+  }
+
+  /**
+   * 应用导入：merge knownWords（并集）、merge streaks（每词 max）、覆盖 session、可选覆盖 preferences
+   */
+  applyImport(payload: ExportPayload, includePreferences: boolean): void {
+    // knownWords 并集
+    for (const k of Object.keys(payload.knownWords || {})) {
+      if (!this._knownWords[k]) this._knownWords[k] = new Set()
+      for (const w of payload.knownWords[k]) {
+        this._knownWords[k].add(w)
+      }
+    }
+
+    // streaks 每词取 max，已在 knownWords 里的直接跳过
+    for (const dk of Object.keys(payload.perfectStreaks || {})) {
+      if (!this._perfectStreaks[dk]) this._perfectStreaks[dk] = {}
+      for (const w of Object.keys(payload.perfectStreaks[dk] || {})) {
+        if (this._knownWords[dk]?.has(w)) continue
+        const cur = this._perfectStreaks[dk][w] ?? 0
+        const inc = payload.perfectStreaks[dk][w]
+        this._perfectStreaks[dk][w] = Math.max(cur, inc)
+      }
+    }
+
+    // session 直接覆盖（如果字典存在）
+    if (payload.session) {
+      if (payload.session.dictKey && idDictionaryMap[payload.session.dictKey]) {
+        this._dictKey = payload.session.dictKey
+        this.dict = idDictionaryMap[this._dictKey]
+        this._globalState.update('dictKey', this._dictKey)
+        this.loadDict()
+        this.invalidateWordListCache()
+      }
+      if (typeof payload.session.chapter === 'number') {
+        this._chapter = payload.session.chapter
+        this._globalState.update('chapter', this._chapter)
+      }
+      if (typeof payload.session.order === 'number') {
+        this._order = payload.session.order
+        this._globalState.update('order', this._order)
+      }
+    }
+
+    // preferences
+    if (includePreferences && payload.preferences) {
+      if (typeof payload.preferences.wordVisibility === 'boolean') {
+        this._wordVisibility = payload.preferences.wordVisibility
+        this._globalState.update('wordVisibility', this._wordVisibility)
+      }
+      if (payload.preferences.settings) {
+        const config = vscode.workspace.getConfiguration('qwerty-learner')
+        for (const key of Object.keys(payload.preferences.settings)) {
+          const value = (payload.preferences.settings as any)[key]
+          if (value !== undefined) {
+            // Fire-and-forget; thenable promise but we don't need to await
+            config.update(key, value, vscode.ConfigurationTarget.Global)
+          }
+        }
+      }
+    }
+
+    this.persistKnownWords()
+    this.persistStreaks()
+    this.invalidateWordListCache()
+    this.clampChapterAndOrder()
+  }
+}
+
+// ============================================================
+// 跨机同步类型定义
+// ============================================================
+
+export interface ExportPayload {
+  version: 1
+  exportedAt: string
+  knownWords: Record<string, string[]>
+  perfectStreaks: Record<string, Record<string, number>>
+  session: {
+    dictKey: string
+    chapter: number
+    order: number
+  }
+  preferences?: {
+    wordVisibility?: boolean
+    settings?: Record<string, unknown>
+  }
+}
+
+export interface ImportPreview {
+  knownDelta: Record<string, { current: number; incoming: number; newlyAdded: number }>
+  sessionDiff: { current: { dictKey: string; chapter: number; order: number }; incoming: { dictKey: string; chapter: number; order: number } } | null
+  sessionRegression: boolean
+  streakChanges: number
+  preferencesChanges: number | null
 }

@@ -216,6 +216,100 @@ export function activate(context: vscode.ExtensionContext) {
           }
         }
       }),
+      vscode.commands.registerCommand('qwerty-learner.exportKnown', async () => {
+        const includePref = !!getConfig('syncIncludesPreferences')
+        const payload = pluginState.exportState(includePref)
+        const today = new Date().toISOString().slice(0, 10).replace(/-/g, '')
+        const defaultName = `qwerty-learner-known-${today}.json`
+        const uri = await vscode.window.showSaveDialog({
+          defaultUri: vscode.Uri.file(defaultName),
+          filters: { JSON: ['json'] },
+          saveLabel: 'Export',
+        })
+        if (!uri) return
+        const fs = require('fs')
+        try {
+          fs.writeFileSync(uri.fsPath, JSON.stringify(payload, null, 2), 'utf-8')
+          const totalKnown = Object.values(payload.knownWords).reduce((a, b) => a + b.length, 0)
+          vscode.window.showInformationMessage(
+            `✓ 已导出 ${Object.keys(payload.knownWords).length} 个词典，共 ${totalKnown} 个已会词` +
+              (includePref ? '（含偏好设置）' : '（不含偏好设置）'),
+          )
+        } catch (err: any) {
+          vscode.window.showErrorMessage(`导出失败: ${err.message ?? err}`)
+        }
+      }),
+      vscode.commands.registerCommand('qwerty-learner.importKnown', async () => {
+        const includePref = !!getConfig('syncIncludesPreferences')
+        const uris = await vscode.window.showOpenDialog({
+          canSelectMany: false,
+          filters: { JSON: ['json'] },
+          openLabel: 'Import',
+        })
+        if (!uris || uris.length === 0) return
+
+        const fs = require('fs')
+        let payload: any
+        try {
+          const raw = fs.readFileSync(uris[0].fsPath, 'utf-8')
+          payload = JSON.parse(raw)
+        } catch (err: any) {
+          vscode.window.showErrorMessage(`无法解析导入文件: ${err.message ?? err}`)
+          return
+        }
+        if (!payload || typeof payload !== 'object' || payload.version !== 1) {
+          vscode.window.showErrorMessage(`导入文件 version 不识别（仅支持 version=1）`)
+          return
+        }
+
+        const preview = pluginState.previewImport(payload)
+
+        // 构建 diff 摘要
+        const lines: string[] = []
+        lines.push(`来源时间: ${payload.exportedAt ?? '未知'}`)
+        lines.push('')
+        lines.push('【已会词典】')
+        for (const k of Object.keys(preview.knownDelta)) {
+          const d = preview.knownDelta[k]
+          lines.push(`  ${k}: 当前 ${d.current} → 合并后 ${d.current + d.newlyAdded}  (新增 ${d.newlyAdded})`)
+        }
+        if (preview.sessionDiff) {
+          const cur = preview.sessionDiff.current
+          const inc = preview.sessionDiff.incoming
+          lines.push('')
+          lines.push('【当前会话】')
+          lines.push(`  词典: ${cur.dictKey} → ${inc.dictKey}`)
+          lines.push(`  章节: ${cur.chapter + 1} → ${inc.chapter + 1}${preview.sessionRegression ? '  ⚠ 倒退' : ''}`)
+          lines.push(`  位置: ${cur.order + 1} → ${inc.order + 1}`)
+        }
+        lines.push('')
+        lines.push(`【Streak】将更新 ${preview.streakChanges} 个词的连续答对计数`)
+        if (preview.preferencesChanges !== null) {
+          if (includePref) {
+            lines.push(`【偏好设置】将更新 ${preview.preferencesChanges} 项 VSCode 配置`)
+          } else {
+            lines.push(`【偏好设置】文件中含偏好但当前 syncIncludesPreferences=false，跳过`)
+          }
+        }
+
+        const confirmLabel = preview.sessionRegression ? '仍然导入 (含倒退)' : '确认导入'
+        const choice = await vscode.window.showInformationMessage(
+          lines.join('\n'),
+          { modal: true },
+          confirmLabel,
+        )
+        if (choice !== confirmLabel) return
+
+        try {
+          pluginState.applyImport(payload, includePref)
+          vscode.window.showInformationMessage('✓ 导入完成')
+          if (pluginState.isStart) {
+            initializeBar()
+          }
+        } catch (err: any) {
+          vscode.window.showErrorMessage(`导入失败: ${err.message ?? err}`)
+        }
+      }),
     ],
   )
 

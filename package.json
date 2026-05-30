@@ -45,7 +45,9 @@
     "onCommand:qwerty-learner.toggleChapterCycle",
     "onCommand:qwerty-learner.markCurrentWordAsKnown",
     "onCommand:qwerty-learner.viewKnownStats",
-    "onCommand:qwerty-learner.unmarkAllKnown"
+    "onCommand:qwerty-learner.unmarkAllKnown",
+    "onCommand:qwerty-learner.exportKnown",
+    "onCommand:qwerty-learner.importKnown"
   ],
   "contributes": {
     "commands": [
@@ -84,6 +86,14 @@
       {
         "command": "qwerty-learner.unmarkAllKnown",
         "title": "Qwerty Learner Unmark All Known (Current Dict)"
+      },
+      {
+        "command": "qwerty-learner.exportKnown",
+        "title": "Qwerty Learner Export Known Words & State"
+      },
+      {
+        "command": "qwerty-learner.importKnown",
+        "title": "Qwerty Learner Import Known Words & State"
       }
     ],
     "keybindings": [
@@ -190,6 +200,11 @@
           "type": "boolean",
           "default": true,
           "description": "切换到新单词时是否自动播放发音。关闭后仅在点击状态栏音标时才发音"
+        },
+        "qwerty-learner.syncIncludesPreferences": {
+          "type": "boolean",
+          "default": false,
+          "description": "导入/导出时是否包含 VSCode 偏好设置（chapterLength、voiceType 等）。默认仅同步学习状态（已会词、连续答对次数、当前章节）。"
         }
       }
     },

@@ -3439,14 +3439,6 @@
         "ukphone": "ˈvælɪd"
     },
     {
-        "name": "vel",
-        "trans": [
-            "conj. 或者（等于or）abbr. 上等皮纸（vellum）；速率（velocity）"
-        ],
-        "usphone": "vel",
-        "ukphone": "vel"
-    },
-    {
         "name": "baggage",
         "trans": [
             "n. 行李"
@@ -5250,14 +5242,6 @@
         "ukphone": "dɪˈzɜːt"
     },
     {
-        "name": "assets",
-        "trans": [
-            "n. 资产"
-        ],
-        "usphone": "ˈæsets",
-        "ukphone": "ˈæsets"
-    },
-    {
         "name": "entree",
         "trans": [
             "n. （美）主菜；（法）入场许可"
@@ -5275,15 +5259,6 @@
         ],
         "usphone": "əˈsaɪn",
         "ukphone": "əˈsaɪn"
-    },
-    {
-        "name": "hors",
-        "trans": [
-            "prep. 不必；在…之外ad",
-            "v. 不必"
-        ],
-        "usphone": "ɔr",
-        "ukphone": "ɔr"
     },
     {
         "name": "leftovers",
@@ -10481,14 +10456,6 @@
         "ukphone": "ɪnˈtaɪtlmənt"
     },
     {
-        "name": "entrée",
-        "trans": [
-            "n. 主菜两道正菜(鱼和肉)之间的小菜入场权"
-        ],
-        "usphone": "'ɒntreɪ",
-        "ukphone": "'ɒntreɪ"
-    },
-    {
         "name": "environment",
         "trans": [
             "n. 环境, 周围状况, 自然环境"
@@ -11034,15 +11001,6 @@
         ],
         "usphone": "fɔːrm",
         "ukphone": "fɔːm"
-    },
-    {
-        "name": "founded",
-        "trans": [
-            "adj. 有基础的",
-            "v. 创立；建立（found的过去分词）"
-        ],
-        "usphone": "'ɪl'faʊndɪd",
-        "ukphone": "'ɪl'faʊndɪd"
     },
     {
         "name": "frank",

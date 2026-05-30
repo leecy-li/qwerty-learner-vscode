@@ -20,10 +20,10 @@ export function activate(context: vscode.ExtensionContext) {
 
   const wordBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100)
   const inputBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -101)
-  const playVoiceBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -102)
-  const translationBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -103)
-  const prevWord = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -104)
-  const nextWord = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -105)
+  const prevWord = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -102)
+  const playVoiceBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -103)
+  const nextWord = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -104)
+  const translationBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -105)
   prevWord.text = '<'
   prevWord.tooltip = '切换上一个单词'
   prevWord.command = PREV_WORD_COMMAND

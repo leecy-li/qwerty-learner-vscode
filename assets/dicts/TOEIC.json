@@ -5685,7 +5685,7 @@
         "ukphone": "ˌfeəˈwel"
     },
     {
-        "name": "baggage%20claim",
+        "name": "baggage claim",
         "trans": [],
         "usphone": "",
         "ukphone": ""
@@ -5942,7 +5942,7 @@
         "ukphone": "ɪnˈkaʊntə(r)"
     },
     {
-        "name": "boarding%20pass",
+        "name": "boarding pass",
         "trans": [],
         "usphone": "",
         "ukphone": ""
@@ -6097,7 +6097,7 @@
         "ukphone": "prɒmpt"
     },
     {
-        "name": "bottom%20line",
+        "name": "bottom line",
         "trans": [],
         "usphone": "",
         "ukphone": ""
@@ -6297,7 +6297,7 @@
         "ukphone": "ˈdrɑːmə"
     },
     {
-        "name": "cabin%20crew",
+        "name": "cabin crew",
         "trans": [],
         "usphone": "",
         "ukphone": ""
@@ -6609,10 +6609,12 @@
         "ukphone": "ˌedɪˈtɔːriəl"
     },
     {
-        "name": "cell%20phone",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "cell phone",
+        "trans": [
+            "手机（等于cellular phone）"
+        ],
+        "usphone": "'selfəun",
+        "ukphone": "'selfəun"
     },
     {
         "name": "finale",
@@ -6665,9 +6667,11 @@
         "ukphone": "ˈpleɪraɪt"
     },
     {
-        "name": "chain%20store",
-        "trans": [],
-        "usphone": "",
+        "name": "chain store",
+        "trans": [
+            "连锁店【空格符号】"
+        ],
+        "usphone": "tʃeɪn stɔː(r)",
         "ukphone": ""
     },
     {
@@ -6828,10 +6832,12 @@
         "ukphone": "kəmˈpiːt"
     },
     {
-        "name": "check%20in",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "check in",
+        "trans": [
+            "办理登机手续"
+        ],
+        "usphone": "ʧɛk ɪn",
+        "ukphone": "ʧɛk ɪn"
     },
     {
         "name": "defeat",
@@ -6844,10 +6850,12 @@
         "ukphone": "dɪˈfiːt"
     },
     {
-        "name": "check%20out",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "check out",
+        "trans": [
+            "登记并借出"
+        ],
+        "usphone": "ʧɛk aʊt",
+        "ukphone": "ʧɛk aʊt"
     },
     {
         "name": "fitness",
@@ -8081,7 +8089,7 @@
         "ukphone": "ɪˌlekˈtrɒnɪks"
     },
     {
-        "name": "control%20panel",
+        "name": "control panel",
         "trans": [],
         "usphone": "",
         "ukphone": ""
@@ -8228,7 +8236,7 @@
         "ukphone": "ˈplʌmɪŋ"
     },
     {
-        "name": "cover%20letter",
+        "name": "cover letter",
         "trans": [],
         "usphone": "",
         "ukphone": ""
@@ -8470,7 +8478,7 @@
         "ukphone": "'pleɪgraʊnd"
     },
     {
-        "name": "cutting%20edge",
+        "name": "cutting edge",
         "trans": [],
         "usphone": "",
         "ukphone": ""
@@ -8958,8 +8966,10 @@
         "ukphone": "dɪˈvəʊtɪd"
     },
     {
-        "name": "depend%20on",
-        "trans": [],
+        "name": "depend on",
+        "trans": [
+            "根据，依据"
+        ],
         "usphone": "",
         "ukphone": ""
     },
@@ -10918,8 +10928,10 @@
         "ukphone": "faɪl"
     },
     {
-        "name": "fill%20out",
-        "trans": [],
+        "name": "fill out",
+        "trans": [
+            "填写"
+        ],
         "usphone": "",
         "ukphone": ""
     },
@@ -10952,10 +10964,12 @@
         "ukphone": "ˈfleksəbl"
     },
     {
-        "name": "flight%20attendant",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "flight attendant",
+        "trans": [
+            "空中乘务员"
+        ],
+        "usphone": "flaɪt əˈtɛndənt",
+        "ukphone": "flaɪt əˈtɛndᵊnt"
     },
     {
         "name": "fluctuate",
@@ -11283,8 +11297,10 @@
         "ukphone": "ˈhæzədəs"
     },
     {
-        "name": "head%20office",
-        "trans": [],
+        "name": "head office",
+        "trans": [
+            "总部"
+        ],
         "usphone": "",
         "ukphone": ""
     },
@@ -12034,8 +12050,10 @@
         "ukphone": "lɔː"
     },
     {
-        "name": "lay%20off",
-        "trans": [],
+        "name": "lay off",
+        "trans": [
+            "裁员；解雇"
+        ],
         "usphone": "",
         "ukphone": ""
     },
@@ -12173,13 +12191,15 @@
         "ukphone": "ləʊˈkeɪt"
     },
     {
-        "name": "log%20on",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "log on",
+        "trans": [
+            "登录"
+        ],
+        "usphone": "lɔɡ ɑn",
+        "ukphone": "lɒɡ ɒn"
     },
     {
-        "name": "log%20out",
+        "name": "log out",
         "trans": [],
         "usphone": "",
         "ukphone": ""
@@ -12759,10 +12779,12 @@
         "ukphone": "ˈpækɪdʒ"
     },
     {
-        "name": "package%20tour",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "package tour",
+        "trans": [
+            "全包游"
+        ],
+        "usphone": "ˈpækəʤ tʊr",
+        "ukphone": "ˈpækɪʤ tʊə"
     },
     {
         "name": "parcel",
@@ -12776,8 +12798,10 @@
         "ukphone": "ˈpɑːsl"
     },
     {
-        "name": "parking%20lot",
-        "trans": [],
+        "name": "parking lot",
+        "trans": [
+            "停车场"
+        ],
         "usphone": "",
         "ukphone": ""
     },
@@ -12911,8 +12935,12 @@
         "ukphone": "plaʊ"
     },
     {
-        "name": "plug%20in",
-        "trans": [],
+        "name": "plug in",
+        "trans": [
+            "plug-in1 ENTRIES FOUND:plug-in (noun)plug-in/ˈplʌgˌɪn/nounplural plug-insplug-in/ˈplʌgˌɪn/ nounplural plug-insLearner's definition of PLUG-IN[count] computers: a small piece of software that adds a feature to a larger program or makes a program work better插件a (Web) browser plug-in（网页）浏览器插件plug-in software插入式软件 plug in [phrasal verb]1plug (something) in or plug in (something): to connect (something, such as a lamp or television) to an electrical source or to another device by using a plug接电源；插插头Don't plug the stereo in yet.先不要给音响接电源。He plugged in the lamp.他接通了电灯的电源。The microphone isn't plugged i",
+            "n.麦克风没接通电源。2: to put (information, such as a word or number) in something填入（文字、数字等信息）The form has spaces where you just plug in [=insert] your name and address.在表格的空白处填写你的姓名和地址。—see ",
+            "also plug-inplug"
+        ],
         "usphone": "",
         "ukphone": ""
     },
@@ -13489,8 +13517,10 @@
         "ukphone": "ˈræʃnəl"
     },
     {
-        "name": "raw%20materials",
-        "trans": [],
+        "name": "raw materials",
+        "trans": [
+            "原材料"
+        ],
         "usphone": "",
         "ukphone": ""
     },
@@ -14113,8 +14143,10 @@
         "ukphone": "ri'vaizd"
     },
     {
-        "name": "right%20away",
-        "trans": [],
+        "name": "right away",
+        "trans": [
+            "立即，马上"
+        ],
         "usphone": "",
         "ukphone": ""
     },
@@ -14229,8 +14261,10 @@
         "ukphone": "ˈskruːtənaɪz"
     },
     {
-        "name": "search%20engine",
-        "trans": [],
+        "name": "search engine",
+        "trans": [
+            "搜索引擎"
+        ],
         "usphone": "",
         "ukphone": ""
     },
@@ -14431,14 +14465,18 @@
         "ukphone": "ˈspeɪʃəs"
     },
     {
-        "name": "spare%20part",
-        "trans": [],
+        "name": "spare part",
+        "trans": [
+            "Ersatzteil"
+        ],
         "usphone": "",
         "ukphone": ""
     },
     {
-        "name": "spare%20time",
-        "trans": [],
+        "name": "spare time",
+        "trans": [
+            "业余时间"
+        ],
         "usphone": "",
         "ukphone": ""
     },
@@ -15084,7 +15122,7 @@
         "ukphone": "ˌʌpˈsteəz"
     },
     {
-        "name": "utility%20bill",
+        "name": "utility bill",
         "trans": [],
         "usphone": "",
         "ukphone": ""

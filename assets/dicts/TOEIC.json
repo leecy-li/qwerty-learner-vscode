@@ -539,12 +539,6 @@
         "ukphone": "ˈsæləri"
     },
     {
-        "name": "sonnel2",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
-    },
-    {
         "name": "amateur",
         "trans": [
             "adj. 业余的, 非职业的外行的",
@@ -897,14 +891,6 @@
         ],
         "usphone": "træk",
         "ukphone": "træk"
-    },
-    {
-        "name": "iness",
-        "trans": [
-            "Definition of -iness in English: -iness suffixɪnəsForming nouns corresponding to adjectives ending in -y (such as clumsiness corresponding to clumsy).OriginSee -y1, -ness.Definition of -iness in US English: -iness suffixForming nouns corresponding to adjectives ending in -y (such as clumsiness corresponding to clumsy).OriginSee -y, -ness."
-        ],
-        "usphone": "",
-        "ukphone": ""
     },
     {
         "name": "acquire",
@@ -1306,25 +1292,6 @@
         "ukphone": "wɪðˈdrɔː"
     },
     {
-        "name": "ance",
-        "trans": [
-            "19. -ance，-ancy 表名词，“状态，状况，性质”appearance★əˈpɪərəns",
-            "n. 出现；外表appear（出现）＋ance→出现disturbance★dɪˈstɜ:bəns",
-            "n. 干扰；动荡，骚乱disturb（干扰）＋ance→干扰financial disturbance 金融风波perseverance★ˌpɜ:sɪˈvɪərəns",
-            "n. 坚持不懈persevere（坚持）＋ance→坚持不懈reliance★rɪˈlaɪəns",
-            "n. 依赖；信赖reli（=rely，依赖）＋ance→依赖self reliance 自力更生resemblance★rɪˈzembləns",
-            "n. 相像resembl(e)（相像）＋ance→相像vacancy★ˈveɪkənsi",
-            "n. 空白；空缺vac（空）＋ancy→空白job vacancy 职位空缺vengeance★ˈvenʤəns",
-            "n. 复仇venge（复仇）＋ance→复仇compliancy★★kəmˈplaɪənsi",
-            "n. 服从compli（=comply，服从）＋ancy→服从forbearance★★fɔ:ˈbeərəns",
-            "n. 忍耐forbear（忍耐）＋ance→忍耐pregnancy★★ˈpreɡnənsi",
-            "n. 怀孕pre（之前）＋gn（出生）＋ancy→出生之前的状态→怀孕vigilance★★ˈvɪʤɪləns",
-            "n. 警惕vigil（醒；活）＋ance→警醒→警惕Constant vigilance is necessary in order to avoid accidents.为了避免意外事故，有必要时刻保持警惕。18. -an ① 表名词，“…地方的人；精通…的人；信仰…的人”；② 表形容词，“…的，属于…地方的”20. -ane 表形容词，“…的，有…性质的”"
-        ],
-        "usphone": "",
-        "ukphone": ""
-    },
-    {
         "name": "accountant",
         "trans": [
             "n. 会计人员, 会计师名 词:accountancy"
@@ -1692,14 +1659,6 @@
         ],
         "usphone": "ˈvaʊtʃər",
         "ukphone": "ˈvaʊtʃə(r)"
-    },
-    {
-        "name": "merce",
-        "trans": [
-            "Definition of Cunningham, Merce in English: Cunningham, Merce proper nounˈkʌnɪŋəmˈkəniNGˌham(1919–2009), American dancer and choreographer. A dancer with the Martha Graham Dance Company (1939–45), he formed his own company in 1953 and explored new abstract directions for modern dance.Definition of Cunningham, Merce in US English: Cunningham, Merce proper nounˈkəniNGˌham(1919–2009), US dancer and choreographer. As a dancer with the Martha Graham dance company 1939–45, he experimented with choreography and collaborated with composer John Cage in solo performances in 1944. He formed his own company in 1953."
-        ],
-        "usphone": "",
-        "ukphone": ""
     },
     {
         "name": "bill",
@@ -5175,12 +5134,6 @@
         ],
         "usphone": "ˈɑːrbɪtreɪt",
         "ukphone": "ˈɑːbɪtreɪt"
-    },
-    {
-        "name": "ning",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
     },
     {
         "name": "area",

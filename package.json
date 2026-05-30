@@ -121,7 +121,7 @@
             "uk",
             "close"
           ],
-          "default": "close",
+          "default": "us",
           "description": "是否开启音标"
         },
         "qwerty-learner.chapterLength": {
@@ -185,8 +185,31 @@
           "minimum": 0,
           "maximum": 10,
           "description": "连续无错误完成多少次后自动标记为已会（0 = 关闭自动标记）"
+        },
+        "qwerty-learner.autoPlayVoice": {
+          "type": "boolean",
+          "default": true,
+          "description": "切换到新单词时是否自动播放发音。关闭后仅在点击状态栏音标时才发音"
         }
       }
+    },
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "qwertyAudioPanel",
+          "title": "Qwerty Voice",
+          "icon": "$(unmute)"
+        }
+      ]
+    },
+    "views": {
+      "qwertyAudioPanel": [
+        {
+          "type": "webview",
+          "id": "qwertyAudioView",
+          "name": "Audio Player"
+        }
+      ]
     }
   },
   "devDependencies": {

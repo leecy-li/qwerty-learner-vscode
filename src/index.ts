@@ -4,7 +4,7 @@ import * as vscode from 'vscode'
 import { range } from 'lodash'
 import { getConfig } from './utils'
 import { soundPlayer } from './sound'
-import { voicePlayer } from './resource/voice'
+import { createVoicePlayer, registerVoiceView } from './resource/voice'
 import PluginState from './utils/PluginState'
 
 const PLAY_VOICE_COMMAND = 'qwerty-learner.playVoice'
@@ -15,6 +15,8 @@ const TOGGLE_DIC_NAME_COMMAND = 'qwerty-learner.toggleDicName'
 
 export function activate(context: vscode.ExtensionContext) {
   const pluginState = new PluginState(context)
+  const voiceProvider = registerVoiceView(context)
+  const voicePlayer = createVoicePlayer(voiceProvider)
 
   const wordBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -100)
   const inputBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -101)
@@ -233,7 +235,9 @@ export function activate(context: vscode.ExtensionContext) {
   }
   function setUpWordBar() {
     wordBar.text = pluginState.getInitialWordBarContent()
-    playVoice()
+    if (getConfig('autoPlayVoice')) {
+      playVoice()
+    }
   }
   function setUpPlayVoiceBar() {
     playVoiceBar.text = pluginState.getInitialPlayVoiceBarContent()

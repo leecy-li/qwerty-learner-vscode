@@ -54,10 +54,12 @@
         "ukphone": "dəˈrektəri"
     },
     {
-        "name": "duplicte",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "duplicate",
+        "trans": [
+            "To duplicate something means to copy it."
+        ],
+        "usphone": "'duplɪket",
+        "ukphone": "ˈdjuːplɪkeɪt"
     },
     {
         "name": "filing",
@@ -114,10 +116,12 @@
         "ukphone": "ˈpəʊstɪdʒ"
     },
     {
-        "name": "puncturality",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "punctuality",
+        "trans": [
+            "严守时间；正确；规矩"
+        ],
+        "usphone": "ˌpʌŋktʃʊˈælətɪ",
+        "ukphone": ",pʌŋktjʊ'ælɪtɪ"
     },
     {
         "name": "schedule",
@@ -215,10 +219,12 @@
         "ukphone": "ˈkɑːbən"
     },
     {
-        "name": "collegue",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "colleague",
+        "trans": [
+            "同事，同僚，同盟"
+        ],
+        "usphone": "ˈkɒliːɡ",
+        "ukphone": "ˈkɑːliːɡ"
     },
     {
         "name": "document",
@@ -431,10 +437,12 @@
         "ukphone": "ˈelɪdʒəbl"
     },
     {
-        "name": "emplyer",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "employer",
+        "trans": [
+            "雇主，老板"
+        ],
+        "usphone": "ɪm'plɔɪɚ",
+        "ukphone": "ɪm'plɒɪə; em-"
     },
     {
         "name": "executive",
@@ -732,10 +740,12 @@
         "ukphone": "əˈkruː"
     },
     {
-        "name": "acquisiton",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "acquisition",
+        "trans": [
+            "An acquisition is something that a person buys or gets in some way."
+        ],
+        "usphone": ",ækwɪ'zɪʃən",
+        "ukphone": "ˌækwɪ'zɪʃn"
     },
     {
         "name": "amplify",
@@ -802,10 +812,12 @@
         "ukphone": "faɪ'nænsɪə"
     },
     {
-        "name": "lauch",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "launch",
+        "trans": [
+            "To launch something means to make it go into motion."
+        ],
+        "usphone": "lɔntʃ",
+        "ukphone": "lɔːntʃ"
     },
     {
         "name": "monopoly",
@@ -1013,10 +1025,15 @@
         "ukphone": "ˈmɜːdʒə(r)"
     },
     {
-        "name": "pengding",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "pending",
+        "trans": [
+            "未决定的；行将发生的",
+            "在…期间；直到…时为止；在等待…之际",
+            "待定；悬而不决（pend的ing形式）",
+            "(Pending)人名；(瑞典)彭丁"
+        ],
+        "usphone": "'pɛndɪŋ",
+        "ukphone": "'pendɪŋ"
     },
     {
         "name": "preliminary",
@@ -1279,10 +1296,12 @@
         "ukphone": "stɒk"
     },
     {
-        "name": "withdrawl",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "withdraw",
+        "trans": [
+            "抽回，收回；取消，撤回；撤退，离开"
+        ],
+        "usphone": "wɪðˈdrɔː",
+        "ukphone": "wɪðˈdrɔː"
     },
     {
         "name": "ance",
@@ -2708,10 +2727,12 @@
         "ukphone": "rɪ'triːvl"
     },
     {
-        "name": "searchi",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "search",
+        "trans": [
+            "To search for something or someone means to look for them carefully."
+        ],
+        "usphone": "sɝtʃ",
+        "ukphone": "sɜːtʃ"
     },
     {
         "name": "shut",
@@ -2916,10 +2937,12 @@
         "ukphone": "swɪtʃ"
     },
     {
-        "name": "tansmission",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "transmission",
+        "trans": [
+            "播送，发射，传送，传染，传播"
+        ],
+        "usphone": "trænzˈmɪʃn",
+        "ukphone": "trænzˈmɪʃn"
     },
     {
         "name": "upgrade",
@@ -3936,10 +3959,12 @@
         "ukphone": "ˈæksɪdənt"
     },
     {
-        "name": "converance",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "conveyance",
+        "trans": [
+            "n.运送，传达"
+        ],
+        "usphone": "kənˈveɪəns",
+        "ukphone": "kənˈveɪəns"
     },
     {
         "name": "accommodate",
@@ -6386,10 +6411,12 @@
         "ukphone": "ˌkænsə'leɪʃ(ə)n"
     },
     {
-        "name": "scripwriter",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "scriptwriter",
+        "trans": [
+            "编剧"
+        ],
+        "usphone": "'skrɪptraɪtɚ",
+        "ukphone": "'skrɪptraɪtə"
     },
     {
         "name": "candidacy",
@@ -6720,10 +6747,12 @@
         "ukphone": "ˌkærəktəˈrɪstɪk"
     },
     {
-        "name": "teater",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "theater",
+        "trans": [
+            "A theater is a building where you watch plays, shows, and movies."
+        ],
+        "usphone": "'θiətɚ",
+        "ukphone": "'θɪətə"
     },
     {
         "name": "characterize",
@@ -7238,10 +7267,12 @@
         "ukphone": "ˌrefəˈriː"
     },
     {
-        "name": "rnner-up",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "runner-up",
+        "trans": [
+            "n.第二名，亚军,亚军队"
+        ],
+        "usphone": "ˌrʌnɚˈʌp",
+        "ukphone": "'rʌnə(r)"
     },
     {
         "name": "spectator",

@@ -766,10 +766,12 @@
         "ukphone": "ˈæset"
     },
     {
-        "name": "buyout/buy",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "buyout",
+        "trans": [
+            "全部买下（市上产品）"
+        ],
+        "usphone": "'baɪ'aʊt",
+        "ukphone": "'baiˌaut"
     },
     {
         "name": "corporation",
@@ -3146,10 +3148,12 @@
         "ukphone": "əˈfɜːm"
     },
     {
-        "name": "ASAP=as",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "ASAP",
+        "trans": [
+            "abbr. 尽快 (as soon as possible)"
+        ],
+        "usphone": "ˈeɪsæp",
+        "ukphone": "ˈeɪsæp"
     },
     {
         "name": "banner",
@@ -4491,10 +4495,12 @@
         "ukphone": "'trendɪ"
     },
     {
-        "name": "VIP=very",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "VIP",
+        "trans": [
+            "abbr.very important people 贵宾，大人物,vasoactive intestinal peptide 血管活性肠肽,Video Interface Processor 视频接口处理器,Variable Information Processing 可变信息处理"
+        ],
+        "usphone": "ˌvi:aɪ'pi:",
+        "ukphone": "ˌvi:"
     },
     {
         "name": "agency",
@@ -5686,9 +5692,11 @@
     },
     {
         "name": "baggage claim",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "trans": [
+            "n. 行李提取处"
+        ],
+        "usphone": "ˈbæɡɪdʒ kleɪm",
+        "ukphone": "ˈbæɡɪdʒ kleɪm"
     },
     {
         "name": "get-together",
@@ -5943,9 +5951,11 @@
     },
     {
         "name": "boarding pass",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "trans": [
+            "n. 登机牌"
+        ],
+        "usphone": "ˈbɔːrdɪŋ pæs",
+        "ukphone": "ˈbɔːdɪŋ pɑːs"
     },
     {
         "name": "extend",
@@ -6098,9 +6108,11 @@
     },
     {
         "name": "bottom line",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "trans": [
+            "n. 底线; 最重要事项; 最终结果"
+        ],
+        "usphone": "ˈbɑːtəm laɪn",
+        "ukphone": "ˈbɒtəm laɪn"
     },
     {
         "name": "quarrel",
@@ -6298,9 +6310,11 @@
     },
     {
         "name": "cabin crew",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "trans": [
+            "n. 客舱乘务员; 机组人员"
+        ],
+        "usphone": "ˈkæbɪn kruː",
+        "ukphone": "ˈkæbɪn kruː"
     },
     {
         "name": "fare",
@@ -8090,9 +8104,11 @@
     },
     {
         "name": "control panel",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "trans": [
+            "n. 控制面板; 控制台"
+        ],
+        "usphone": "kənˈtroʊl ˈpænəl",
+        "ukphone": "kənˈtrəʊl ˈpænəl"
     },
     {
         "name": "fire",
@@ -8237,9 +8253,11 @@
     },
     {
         "name": "cover letter",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "trans": [
+            "n. 求职信; 附信"
+        ],
+        "usphone": "ˈkʌvər ˈletər",
+        "ukphone": "ˈkʌvə ˈletə"
     },
     {
         "name": "possession",
@@ -8479,9 +8497,11 @@
     },
     {
         "name": "cutting edge",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "trans": [
+            "n. 尖端; 前沿; 优势"
+        ],
+        "usphone": "ˌkʌtɪŋ ˈedʒ",
+        "ukphone": "ˌkʌtɪŋ ˈedʒ"
     },
     {
         "name": "porch",
@@ -9473,10 +9493,12 @@
         "ukphone": "dɪsˈmɪs"
     },
     {
-        "name": "ressure",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "name": "pressure",
+        "trans": [
+            "强制，压迫；压力"
+        ],
+        "usphone": "ˈpreʃə",
+        "ukphone": "ˈpreʃər"
     },
     {
         "name": "dismissive",
@@ -12200,9 +12222,11 @@
     },
     {
         "name": "log out",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "trans": [
+            "v. 注销; 退出登录"
+        ],
+        "usphone": "lɔːɡ aʊt",
+        "ukphone": "lɒɡ aʊt"
     },
     {
         "name": "loyal",
@@ -15123,9 +15147,11 @@
     },
     {
         "name": "utility bill",
-        "trans": [],
-        "usphone": "",
-        "ukphone": ""
+        "trans": [
+            "n. 水电费账单; 公用事业费"
+        ],
+        "usphone": "juːˈtɪləti bɪl",
+        "ukphone": "juːˈtɪləti bɪl"
     },
     {
         "name": "V",

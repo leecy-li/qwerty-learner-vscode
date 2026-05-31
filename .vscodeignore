@@ -1,8 +1,11 @@
 .vscode/**
 .vscode-test/**
+.git/**
+.history/**
 out/test/**
 src/**
 .gitignore
+.gitattributes
 .yarnrc
 vsc-extension-quickstart.md
 **/tsconfig.json
@@ -10,9 +13,16 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 node_modules
-.vscode
-node_modules
+node_modules/**
 out/
-src/
+yarn.lock
+package-lock.json
 tsconfig.json
 webpack.config.js
+prettier.config.js
+*.vsix
+
+# 本地协作 / 工作流文件（不打包到扩展里）
+HANDOFF.md
+tasks.md
+.claude/**
